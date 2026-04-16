@@ -4,7 +4,7 @@
 
 **A personal 6-month AI roadmap tracker built for AI Master's students**
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-2563eb?style=for-the-badge&logo=github)](https://ghostdead.github.io/my-progress/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-2563eb?style=for-the-badge&logo=github)](https://abdo22c.github.io/my-progress/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Made with](https://img.shields.io/badge/Made%20with-HTML%20CSS%20JS-orange?style=for-the-badge)](.)
 [![Morocco](https://img.shields.io/badge/Made%20in-Morocco%20🇲🇦-red?style=for-the-badge)](.)
