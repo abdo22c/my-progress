@@ -51,9 +51,9 @@ Built to leverage:
 
 ## 🗺️ The 6-Month Roadmap
 
-Month 1 🧠 → Advanced ML & Deep Learning
-Month 2 💬 → NLP, Transformers & Arabic NLP
-Month 3 ⚡ → LLMs & Generative AI (RAG, Agents, Fine-tuning)
-Month 4 ⚙️ → MLOps & Production Systems
-Month 5 🏆 → Oracle Certifications & Specialization
-Month 6 🎯 → Job Search & Career Launch
+<div>Month 1 🧠 → Advanced ML & Deep Learning</div>
+<div>Month 2 💬 → NLP, Transformers & Arabic NLP</div>
+<div>Month 3 ⚡ → LLMs & Generative AI (RAG, Agents, Fine-tuning)</div>
+<div>Month 4 ⚙️ → MLOps & Production Systems</div>
+<div>Month 5 🏆 → Oracle Certifications & Specialization</div>
+<div>Month 6 🎯 → Job Search & Career Launch</div>
