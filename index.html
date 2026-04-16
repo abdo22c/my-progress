@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My-Progress — 6-Month AI Mastery Roadmap Tracker">
+    <title>My-Progress | 6-Month AI Mastery</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     LOADING SCREEN
+     ============================================================ -->
+<div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+        <div class="loading-logo">
+            <span class="loading-logo-mark">MP</span>
+        </div>
+        <h2 class="loading-title">My-Progress</h2>
+        <p class="loading-sub">6-Month AI Mastery Tracker</p>
+        <div class="loading-bar-wrap">
+            <div class="loading-bar-fill" id="loading-bar"></div>
+        </div>
+        <p class="loading-tip" id="loading-tip">Preparing your roadmap...</p>
+    </div>
+</div>
+
+<!-- ============================================================
+     SIDEBAR
+     ============================================================ -->
+<aside id="sidebar" class="sidebar">
+
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <div class="logo-mark">MP</div>
+            <div class="logo-text">
+                <span class="logo-name">My-Progress</span>
+                <span class="logo-tag">AI Mastery · 6 Months</span>
+            </div>
+        </div>
+        <button class="sidebar-close-btn" onclick="toggleSidebar()" aria-label="Close sidebar">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Sidebar User Card -->
+    <div class="sidebar-user-card">
+        <div class="user-avatar-wrap">
+            <div class="user-avatar" id="sidebar-avatar">🎓</div>
+            <div class="user-status-dot"></div>
+        </div>
+        <div class="user-info">
+            <span class="user-name" id="sidebar-username">AI Master Student</span>
+            <span class="user-location">🇲🇦 Morocco</span>
+        </div>
+    </div>
+
+    <!-- Streak Widget -->
+    <div class="sidebar-streak">
+        <div class="streak-icon"><i class="fas fa-fire-flame-curved"></i></div>
+        <div class="streak-data">
+            <span class="streak-num" id="sidebar-streak">0</span>
+            <span class="streak-lbl">day streak</span>
+        </div>
+        <div class="streak-bar-wrap">
+            <div class="streak-bar-fill" id="streak-bar-fill"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+
+        <div class="nav-group">
+            <span class="nav-group-label">Overview</span>
+            <a href="#" class="nav-link active" data-page="dashboard" onclick="showPage('dashboard', this)">
+                <span class="nav-icon"><i class="fas fa-gauge-high"></i></span>
+                <span class="nav-text">Dashboard</span>
+                <span class="nav-badge" id="nav-badge-dashboard"></span>
+            </a>
+            <a href="#" class="nav-link" data-page="daily" onclick="showPage('daily', this)">
+                <span class="nav-icon"><i class="fas fa-list-check"></i></span>
+                <span class="nav-text">Today's Tasks</span>
+                <span class="nav-badge" id="nav-badge-daily"></span>
+            </a>
+        </div>
+
+        <div class="nav-group">
+            <span class="nav-group-label">Roadmap</span>
+            <a href="#" class="nav-link" data-page="roadmap" onclick="showPage('roadmap', this)">
+                <span class="nav-icon"><i class="fas fa-route"></i></span>
+                <span class="nav-text">6-Month Path</span>
+            </a>
+            <a href="#" class="nav-link" data-page="months" onclick="showPage('months', this)">
+                <span class="nav-icon"><i class="fas fa-calendar-days"></i></span>
+                <span class="nav-text">Monthly Breakdown</span>
+            </a>
+        </div>
+
+        <div class="nav-group">
+            <span class="nav-group-label">Build & Prove</span>
+            <a href="#" class="nav-link" data-page="projects" onclick="showPage('projects', this)">
+                <span class="nav-icon"><i class="fas fa-rocket"></i></span>
+                <span class="nav-text">Projects</span>
+                <span class="nav-badge" id="nav-badge-projects"></span>
+            </a>
+            <a href="#" class="nav-link" data-page="certifications" onclick="showPage('certifications', this)">
+                <span class="nav-icon"><i class="fas fa-award"></i></span>
+                <span class="nav-text">Certifications</span>
+                <span class="nav-badge badge-gold" id="nav-badge-certs">4</span>
+            </a>
+            <a href="#" class="nav-link" data-page="skills" onclick="showPage('skills', this)">
+                <span class="nav-icon"><i class="fas fa-layer-group"></i></span>
+                <span class="nav-text">Skills Matrix</span>
+            </a>
+        </div>
+
+        <div class="nav-group">
+            <span class="nav-group-label">Resources & Tools</span>
+            <a href="#" class="nav-link" data-page="resources" onclick="showPage('resources', this)">
+                <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+                <span class="nav-text">Free Resources</span>
+            </a>
+            <a href="#" class="nav-link" data-page="github" onclick="showPage('github', this)">
+                <span class="nav-icon"><i class="fab fa-github"></i></span>
+                <span class="nav-text">GitHub Student Pack</span>
+                <span class="nav-tag">Free</span>
+            </a>
+            <a href="#" class="nav-link" data-page="oracle" onclick="showPage('oracle', this)">
+                <span class="nav-icon"><i class="fas fa-cloud"></i></span>
+                <span class="nav-text">Oracle Certs Path</span>
+                <span class="nav-tag">Free</span>
+            </a>
+        </div>
+
+        <div class="nav-group">
+            <span class="nav-group-label">Personal</span>
+            <a href="#" class="nav-link" data-page="journal" onclick="showPage('journal', this)">
+                <span class="nav-icon"><i class="fas fa-book-open"></i></span>
+                <span class="nav-text">Journal</span>
+            </a>
+            <a href="#" class="nav-link" data-page="pomodoro" onclick="showPage('pomodoro', this)">
+                <span class="nav-icon"><i class="fas fa-hourglass-half"></i></span>
+                <span class="nav-text">Focus Timer</span>
+            </a>
+            <a href="#" class="nav-link" data-page="analytics" onclick="showPage('analytics', this)">
+                <span class="nav-icon"><i class="fas fa-chart-bar"></i></span>
+                <span class="nav-text">Analytics</span>
+            </a>
+            <a href="#" class="nav-link" data-page="settings" onclick="showPage('settings', this)">
+                <span class="nav-icon"><i class="fas fa-sliders"></i></span>
+                <span class="nav-text">Settings</span>
+            </a>
+        </div>
+
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+        <div class="sidebar-footer-progress">
+            <div class="sfp-top">
+                <span>Overall Progress</span>
+                <span id="sidebar-progress-pct">0%</span>
+            </div>
+            <div class="sfp-bar">
+                <div class="sfp-bar-fill" id="sidebar-progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+</aside>
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<main id="main-content" class="main-content">
+
+    <!-- ── TOPBAR ── -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="topbar-greeting">
+                <h2 id="topbar-greeting">Good Morning 👋</h2>
+                <p id="topbar-date"></p>
+            </div>
+        </div>
+
+        <div class="topbar-center">
+            <div class="topbar-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="global-search" placeholder="Search tasks, topics, resources..." autocomplete="off">
+                <div id="search-results" class="search-results hidden"></div>
+            </div>
+        </div>
+
+        <div class="topbar-right">
+            <!-- Quick Stats Chips -->
+            <div class="topbar-chips">
+                <div class="topbar-chip chip-blue" title="Current Month">
+                    <i class="fas fa-calendar-check"></i>
+                    <span id="chip-month">M1</span>
+                </div>
+                <div class="topbar-chip chip-green" title="Tasks Done Today">
+                    <i class="fas fa-check"></i>
+                    <span id="chip-today">0</span>
+                </div>
+                <div class="topbar-chip chip-orange" title="Current Streak">
+                    <i class="fas fa-fire"></i>
+                    <span id="chip-streak">0</span>
+                </div>
+            </div>
+
+            <div class="topbar-divider"></div>
+
+            <!-- Theme Toggle -->
+            <button class="topbar-icon-btn" onclick="toggleTheme()" title="Toggle theme" id="theme-btn">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+
+            <!-- Notifications -->
+            <button class="topbar-icon-btn notif-btn" onclick="toggleNotifications()" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="notif-count" id="notif-count">3</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ════════════════════════════════════════
+         PAGE: DASHBOARD
+         ════════════════════════════════════════ -->
+    <section id="page-dashboard" class="page active">
+
+        <!-- Page Title -->
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-subtitle">Track your 6-month AI mastery journey · Morocco 🇲🇦</p>
+            </div>
+            <div class="page-title-actions">
+                <button class="btn btn-ghost btn-sm" onclick="showPage('daily', null)">
+                    <i class="fas fa-play"></i> Continue Learning
+                </button>
+                <button class="btn btn-primary btn-sm" onclick="showPage('roadmap', null)">
+                    <i class="fas fa-route"></i> View Roadmap
+                </button>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card kpi-blue">
+                <div class="kpi-header">
+                    <span class="kpi-label">Current Month</span>
+                    <div class="kpi-icon"><i class="fas fa-calendar-alt"></i></div>
+                </div>
+                <div class="kpi-value" id="kpi-month">1 / 6</div>
+                <div class="kpi-sub" id="kpi-month-name">Advanced ML & Deep Learning</div>
+                <div class="kpi-bar"><div class="kpi-bar-fill" id="kpi-month-bar"></div></div>
+            </div>
+
+            <div class="kpi-card kpi-green">
+                <div class="kpi-header">
+                    <span class="kpi-label">Tasks Completed</span>
+                    <div class="kpi-icon"><i class="fas fa-check-double"></i></div>
+                </div>
+                <div class="kpi-value" id="kpi-tasks">0</div>
+                <div class="kpi-sub" id="kpi-tasks-total">of 0 total tasks</div>
+                <div class="kpi-bar"><div class="kpi-bar-fill" id="kpi-tasks-bar"></div></div>
+            </div>
+
+            <div class="kpi-card kpi-orange">
+                <div class="kpi-header">
+                    <span class="kpi-label">Day Streak</span>
+                    <div class="kpi-icon"><i class="fas fa-fire-flame-curved"></i></div>
+                </div>
+                <div class="kpi-value" id="kpi-streak">0</div>
+                <div class="kpi-sub" id="kpi-streak-sub">Start your streak today!</div>
+                <div class="kpi-mini-dots" id="streak-dots"></div>
+            </div>
+
+            <div class="kpi-card kpi-purple">
+                <div class="kpi-header">
+                    <span class="kpi-label">Oracle Certifications</span>
+                    <div class="kpi-icon"><i class="fas fa-award"></i></div>
+                </div>
+                <div class="kpi-value" id="kpi-certs">0 / 4</div>
+                <div class="kpi-sub">OCI AI · GenAI · Data Science · Foundations</div>
+                <div class="kpi-cert-dots" id="cert-dots"></div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="dashboard-grid">
+
+            <!-- Overall Progress -->
+            <div class="card dash-card-full">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <h3 class="card-title">6-Month Journey Progress</h3>
+                        <span class="card-subtitle">Phase-by-phase completion</span>
+                    </div>
+                    <span class="badge badge-blue" id="overall-pct-badge">0%</span>
+                </div>
+                <div class="journey-phases" id="journey-phases">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="card dash-card-lg">
+                <div class="card-header">
+                    <h3 class="card-title">Weekly Activity</h3>
+                    <select class="card-select" id="chart-period" onchange="updateActivityChart()">
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card dash-card-sm">
+                <div class="card-header">
+                    <h3 class="card-title">Skills Radar</h3>
+                </div>
+                <div class="chart-container chart-sm">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Today's Focus -->
+            <div class="card dash-card-md">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <h3 class="card-title">Current Focus</h3>
+                        <span class="card-subtitle" id="focus-phase-label">Month 1</span>
+                    </div>
+                    <span class="badge badge-pulse">Active</span>
+                </div>
+                <div id="focus-tasks-list" class="focus-tasks-list">
+                    <!-- Rendered by JS -->
+                </div>
+                <button class="btn btn-primary btn-sm btn-full" style="margin-top:1rem" onclick="showPage('daily', null)">
+                    Open Full Task List <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Upcoming Milestones -->
+            <div class="card dash-card-sm">
+                <div class="card-header">
+                    <h3 class="card-title">Key Milestones</h3>
+                </div>
+                <div id="milestones-list" class="milestones-list">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Activity Heatmap -->
+            <div class="card dash-card-full">
+                <div class="card-header">
+                    <h3 class="card-title">Activity Heatmap</h3>
+                    <span class="card-subtitle">180-day journey</span>
+                </div>
+                <div id="heatmap" class="heatmap-grid"></div>
+                <div class="heatmap-legend">
+                    <span>Less</span>
+                    <div class="heatmap-legend-dots">
+                        <div class="hm-dot hm-0"></div>
+                        <div class="hm-dot hm-1"></div>
+                        <div class="hm-dot hm-2"></div>
+                        <div class="hm-dot hm-3"></div>
+                        <div class="hm-dot hm-4"></div>
+                    </div>
+                    <span>More</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: TODAY'S TASKS
+         ════════════════════════════════════════ -->
+    <section id="page-daily" class="page">
+
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">Today's Tasks</h1>
+                <p class="page-subtitle" id="daily-month-label">Month 1 — Advanced ML & Deep Learning</p>
+            </div>
+            <div class="page-title-actions">
+                <button class="btn btn-ghost btn-sm" onclick="prevMonth()">
+                    <i class="fas fa-chevron-left"></i> Prev Month
+                </button>
+                <button class="btn btn-ghost btn-sm" onclick="jumpToCurrentMonth()">
+                    <i class="fas fa-crosshairs"></i> Current
+                </button>
+                <button class="btn btn-ghost btn-sm" onclick="nextMonth()">
+                    Next Month <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Month Progress Header -->
+        <div class="month-progress-header">
+            <div class="mph-info">
+                <div class="mph-month-badge" id="mph-badge">M1</div>
+                <div class="mph-details">
+                    <span class="mph-title" id="mph-title">Advanced ML & Deep Learning</span>
+                    <span class="mph-sub" id="mph-sub">0 of 0 tasks completed</span>
+                </div>
+            </div>
+            <div class="mph-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="month-progress-fill"></div>
+                </div>
+                <span class="mph-pct" id="mph-pct">0%</span>
+            </div>
+        </div>
+
+        <!-- Week Tabs -->
+        <div class="week-tabs" id="week-tabs">
+            <!-- Rendered by JS -->
+        </div>
+
+        <!-- Task Sections -->
+        <div id="tasks-container" class="tasks-container">
+            <!-- Rendered by JS -->
+        </div>
+
+        <!-- Notes -->
+        <div class="card notes-card">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <h3 class="card-title"><i class="fas fa-pen-to-square"></i> Notes & Reflections</h3>
+                    <span class="card-subtitle">Month <span id="notes-month-num">1</span></span>
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="saveNotes()">
+                    <i class="fas fa-floppy-disk"></i> Save
+                </button>
+            </div>
+            <textarea id="notes-textarea" class="notes-textarea" placeholder="Write your learnings, blockers, ideas, or reflections for this month..."></textarea>
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: 6-MONTH ROADMAP
+         ════════════════════════════════════════ -->
+    <section id="page-roadmap" class="page">
+
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">6-Month Learning Path</h1>
+                <p class="page-subtitle">Tailored for AI Master's students · Oracle + GitHub Student free resources</p>
+            </div>
+            <div class="page-title-actions">
+                <div class="filter-group" id="roadmap-filters">
+                    <button class="filter-btn active" onclick="filterRoadmap('all', this)">All</button>
+                    <button class="filter-btn" onclick="filterRoadmap(1, this)">M1</button>
+                    <button class="filter-btn" onclick="filterRoadmap(2, this)">M2</button>
+                    <button class="filter-btn" onclick="filterRoadmap(3, this)">M3</button>
+                    <button class="filter-btn" onclick="filterRoadmap(4, this)">M4</button>
+                    <button class="filter-btn" onclick="filterRoadmap(5, this)">M5</button>
+                    <button class="filter-btn" onclick="filterRoadmap(6, this)">M6</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap Overview Banner -->
+        <div class="roadmap-banner">
+            <div class="roadmap-banner-content">
+                <div class="rb-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div><strong>6 Months</strong><span>Structured Path</span></div>
+                </div>
+                <div class="rb-divider"></div>
+                <div class="rb-item">
+                    <i class="fas fa-award"></i>
+                    <div><strong>4 Oracle Certs</strong><span>Free with your access</span></div>
+                </div>
+                <div class="rb-divider"></div>
+                <div class="rb-item">
+                    <i class="fab fa-github"></i>
+                    <div><strong>GitHub Student</strong><span>$200K+ free tools</span></div>
+                </div>
+                <div class="rb-divider"></div>
+                <div class="rb-item">
+                    <i class="fas fa-rocket"></i>
+                    <div><strong>8 Projects</strong><span>Portfolio-ready</span></div>
+                </div>
+                <div class="rb-divider"></div>
+                <div class="rb-item">
+                    <i class="fas fa-briefcase"></i>
+                    <div><strong>Job Ready</strong><span>By month 6</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline-wrap" id="roadmap-timeline">
+            <!-- Rendered by JS -->
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: MONTHLY BREAKDOWN
+         ════════════════════════════════════════ -->
+    <section id="page-months" class="page">
+
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">Monthly Breakdown</h1>
+                <p class="page-subtitle">Detailed week-by-week plan for each month</p>
+            </div>
+        </div>
+
+        <!-- Month Selector -->
+        <div class="month-selector" id="month-selector">
+            <!-- Rendered by JS -->
+        </div>
+
+        <!-- Month Detail -->
+        <div id="month-detail-container">
+            <!-- Rendered by JS -->
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: PROJECTS
+         ════════════════════════════════════════ -->
+    <section id="page-projects" class="page">
+
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">Projects Portfolio</h1>
+                <p class="page-subtitle">8 portfolio projects — from ML systems to LLMs and MLOps</p>
+            </div>
+            <div class="page-title-actions">
+                <div class="filter-group">
+                    <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
+                    <button class="filter-btn" onclick="filterProjects('ml', this)">ML/DL</button>
+                    <button class="filter-btn" onclick="filterProjects('nlp', this)">NLP</button>
+                    <button class="filter-btn" onclick="filterProjects('genai', this)">GenAI</button>
+                    <button class="filter-btn" onclick="filterProjects('mlops', this)">MLOps</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Stats Bar -->
+        <div class="projects-stats-bar">
+            <div class="psb-item">
+                <span class="psb-num" id="psb-done">0</span>
+                <span class="psb-label">Completed</span>
+            </div>
+            <div class="psb-item">
+                <span class="psb-num" id="psb-progress">0</span>
+                <span class="psb-label">In Progress</span>
+            </div>
+            <div class="psb-item">
+                <span class="psb-num" id="psb-total">8</span>
+                <span class="psb-label">Total</span>
+            </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid" id="projects-grid">
+            <!-- Rendered by JS -->
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: CERTIFICATIONS
+         ════════════════════════════════════════ -->
+    <section id="page-certifications" class="page">
+
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">Oracle Certifications</h1>
+                <p class="page-subtitle">4 certifications — all free with your Oracle access · Strategic order included</p>
+            </div>
+        </div>
+
+        <!-- Cert Progress Overview -->
+        <div class="cert-overview-banner">
+            <div class="cob-left">
+                <div class="cob-ring-wrap">
+                    <svg viewBox="0 0 80 80" class="cob-ring">
+                        <circle cx="40" cy="40" r="34" class="cob-ring-bg"/>
+                        <circle cx="40" cy="40" r="34" class="cob-ring-progress" id="cert-ring-progress"
+                            stroke-dasharray="213.6" stroke-dashoffset="213.6"/>
+                    </svg>
+                    <span class="cob-ring-text" id="cob-pct">0%</span>
+                </div>
+                <div class="cob-info">
+                    <h3 id="cob-earned">0 of 4 Earned</h3>
+                    <p>Complete all 4 Oracle AI certifications</p>
+                    <p>using your <strong>free access</strong></p>
+                </div>
+            </div>
+            <div class="cob-timeline">
+                <div class="cob-step" id="cob-step-1">
+                    <div class="cob-step-dot"></div>
+                    <span>OCI Foundations</span>
+                    <small>Month 4</small>
+                </div>
+                <div class="cob-step" id="cob-step-2">
+                    <div class="cob-step-dot"></div>
+                    <span>OCI AI Foundations</span>
+                    <small>Month 4</small>
+                </div>
+                <div class="cob-step" id="cob-step-3">
+                    <div class="cob-step-dot"></div>
+                    <span>OCI GenAI Professional</span>
+                    <small>Month 5</small>
+                </div>
+                <div class="cob-step" id="cob-step-4">
+                    <div class="cob-step-dot"></div>
+                    <span>OCI Data Science Pro</span>
+                    <small>Month 5</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cert Cards -->
+        <div class="certs-grid" id="certs-grid">
+            <!-- Rendered by JS -->
+        </div>
+
+        <!-- Study Resources -->
+        <div class="card" style="margin-top:1.5rem">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-book-open"></i> Certification Study Resources</h3>
+                <span class="badge badge-green">All Free</span>
+            </div>
+            <div class="cert-resources-grid" id="cert-resources-grid">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: SKILLS MATRIX
+         ════════════════════════════════════════ -->
+    <section id="page-skills" class="page">
+
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">Skills Matrix</h1>
+                <p class="page-subtitle">Rate your current level · Update as you grow · Target levels included</p>
+            </div>
+            <div class="page-title-actions">
+                <button class="btn btn-ghost btn-sm" onclick="exportSkills()">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+        </div>
+
+        <!-- Skills Overview -->
+        <div class="skills-overview-row">
+            <div class="card skill-overview-card">
+                <div class="chart-container chart-sm">
+                    <canvas id="skillsBarChart"></canvas>
+                </div>
+            </div>
+            <div class="card skill-overview-card">
+                <div class="chart-container chart-sm">
+                    <canvas id="skillsRadarChart2"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Categories -->
+        <div id="skills-container">
+            <!-- Rendered by JS -->
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: RESOURCES
+         ════════════════════════════════════════ -->
+    <section id="page-resources" class="page">
+
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">Free Learning Resources</h1>
+                <p class="page-subtitle">Curated resources — papers, courses, tools, videos · Organized by month</p>
+            </div>
+            <div class="page-title-actions">
+                <div class="filter-group">
+                    <button class="filter-btn active" onclick="filterResources('all', this)">All</button>
+                    <button class="filter-btn" onclick="filterResources('video', this)">Videos</button>
+                    <button class="filter-btn" onclick="filterResources('course', this)">Courses</button>
+                    <button class="filter-btn" onclick="filterResources('paper', this)">Papers</button>
+                    <button class="filter-btn" onclick="filterResources('docs', this)">Docs</button>
+                    <button class="filter-btn" onclick="filterResources('book', this)">Books</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="resources-grid" id="resources-grid">
+            <!-- Rendered by JS -->
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: GITHUB STUDENT PACK
+         ════════════════════════════════════════ -->
+    <section id="page-github" class="page">
+
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">GitHub Student Developer Pack</h1>
+                <p class="page-subtitle">$200,000+ in free developer tools — activate everything relevant to AI/ML</p>
+            </div>
+            <a href="https://education.github.com/pack" target="_blank" class="btn btn-primary btn-sm">
+                <i class="fab fa-github"></i> Activate Pack
+            </a>
+        </div>
+
+        <!-- GitHub Banner -->
+        <div class="github-banner">
+            <div class="gh-banner-left">
+                <i class="fab fa-github gh-icon"></i>
+                <div>
+                    <h3>GitHub Student Developer Pack</h3>
+                    <p>The best developer tools, free for students</p>
+                </div>
+            </div>
+            <div class="gh-banner-stats">
+                <div class="gh-stat"><span>$200K+</span><small>Total Value</small></div>
+                <div class="gh-stat"><span>100+</span><small>Tools</small></div>
+                <div class="gh-stat"><span>∞</span><small>Copilot Requests</small></div>
+            </div>
+        </div>
+
+        <!-- Must-Use Tools -->
+        <h2 class="section-title">🔥 Must-Use for AI/ML</h2>
+        <div class="github-tools-grid" id="github-tools-priority">
+            <!-- Rendered by JS -->
+        </div>
+
+        <h2 class="section-title" style="margin-top:1.5rem">⚡ Also Activate</h2>
+        <div class="github-tools-grid" id="github-tools-secondary">
+            <!-- Rendered by JS -->
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: ORACLE PATH
+         ════════════════════════════════════════ -->
+    <section id="page-oracle" class="page">
+
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">Oracle Certification Path</h1>
+                <p class="page-subtitle">Step-by-step guide · All exams free with your Oracle access · Prep resources included</p>
+            </div>
+            <a href="https://education.oracle.com" target="_blank" class="btn btn-primary btn-sm">
+                <i class="fas fa-external-link-alt"></i> Oracle University
+            </a>
+        </div>
+
+        <!-- Oracle Banner -->
+        <div class="oracle-banner">
+            <div class="oracle-logo-wrap">
+                <span class="oracle-logo-text">ORACLE</span>
+                <span class="oracle-logo-sub">Cloud Infrastructure</span>
+            </div>
+            <div class="oracle-banner-info">
+                <div class="ob-item"><i class="fas fa-check-circle"></i><span>Free exam access included</span></div>
+                <div class="ob-item"><i class="fas fa-check-circle"></i><span>Oracle University free courses</span></div>
+                <div class="ob-item"><i class="fas fa-check-circle"></i><span>OCI Free Tier for practice</span></div>
+                <div class="ob-item"><i class="fas fa-check-circle"></i><span>Industry recognized credentials</span></div>
+            </div>
+        </div>
+
+        <!-- Cert Path Details -->
+        <div id="oracle-path-container">
+            <!-- Rendered by JS -->
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: JOURNAL
+         ════════════════════════════════════════ -->
+    <section id="page-journal" class="page">
+
+        <div class="page-title-row">
+            <div>
+                <h1 class="page-title">Learning Journal</h1>
+                <p class="page-subtitle">Document your insights, breakthroughs, and reflections</p>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="openJournalEditor()">
+                <i class="fas fa-plus"></i> New Entry
+            </button>
+        </div>
+
+        <!-- Journal Editor -->
+        <div id="journal-editor" class="card journal-editor hidden">
+            <div class="journal-editor-header">
+                <input type="text" id="j-title" class="j-title-input" placeholder="Entry title...">
+                <div class="j-meta-row">
+                    <input type="text" id="j-tags" class="j-tags-input" placeholder="Tags: llm, rag, project, certification...">
+                    <div class="mood-row">
+                        <span class="mood-label">Mood:</span>
+                        <button class="mood-btn" onclick="pickMood('🔥', this)" title="On fire">🔥</button>
+                        <button class="mood-btn" onclick="pickMood('💡', this)" title="Insight">💡</button>
+                        <button class="mood-btn" onclick="pickMood('😊', this)" title="Happy">😊</button>
+                        <button class="mood-btn" onclick="pickMood('🤔', this)" title="Thinking">🤔</button>
+                        <button class="mood-btn" onclick="pickMood('😤', this)" title="Frustrated">😤</button>
+                        <button class="mood-btn" onclick="pickMood('😴', this)" title="Tired">😴</button>
+                    </div>
+                </div>
+            </div>
+            <textarea id="j-content" class="j-content-textarea"
+                placeholder="What did you learn today? Any breakthroughs or blockers? Ideas for projects? Thoughts on your progress?"></textarea>
+            <div class="j-editor-footer">
+                <div class="j-word-count">
+                    <span id="j-word-count">0 words</span>
+                </div>
+                <div class="j-editor-actions">
+                    <button class="btn btn-ghost btn-sm" onclick="closeJournalEditor()">Cancel</button>
+                    <button class="btn btn-primary btn-sm" onclick="saveJournalEntry()">
+                        <i class="fas fa-floppy-disk"></i> Save Entry
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journal Filters -->
+        <div class="journal-filters">
+            <input type="text" id="journal-search" class="journal-search-input" placeholder="Search entries...">
+            <select id="journal-sort" class="journal-sort-select" onchange="renderJournal()">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+            </select>
+        </div>
+
+        <!-- Journal Entries -->
+        <div id="journal-entries-list" class="journal-entries-list">
+            <!-- Rendered by JS -->
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: FOCUS TIMER (POMODORO)
+         ════════════════════════════════════════ -->
+    <section id="page-pomodoro" class="page">
+
+        <div class="page-title-row">
+            <h1 class="page-title">Focus Timer</h1>
+        </div>
+
+        <div class="pomodoro-layout">
+
+            <!-- Timer Card -->
+            <div class="card pomodoro-card">
+                <div class="pomo-mode-tabs">
+                    <button class="pomo-mode active" id="mode-focus" onclick="setPomoMode('focus', this)">Focus</button>
+                    <button class="pomo-mode" id="mode-short" onclick="setPomoMode('short', this)">Short Break</button>
+                    <button class="pomo-mode" id="mode-long" onclick="setPomoMode('long', this)">Long Break</button>
+                </div>
+
+                <div class="pomo-ring-wrap">
+                    <svg class="pomo-svg" viewBox="0 0 200 200">
+                        <circle cx="100" cy="100" r="88" class="pomo-ring-bg"/>
+                        <circle cx="100" cy="100" r="88" class="pomo-ring-progress" id="pomo-ring"
+                            stroke-dasharray="552.92" stroke-dashoffset="0"/>
+                    </svg>
+                    <div class="pomo-center">
+                        <div class="pomo-time" id="pomo-display">25:00</div>
+                        <div class="pomo-session-label" id="pomo-session-label">Session 1</div>
+                    </div>
+                </div>
+
+                <div class="pomo-controls">
+                    <button class="pomo-btn-secondary" onclick="resetPomodoro()" title="Reset">
+                        <i class="fas fa-rotate-right"></i>
+                    </button>
+                    <button class="pomo-btn-primary" id="pomo-toggle-btn" onclick="togglePomodoro()">
+                        <i class="fas fa-play" id="pomo-toggle-icon"></i>
+                        <span id="pomo-toggle-text">Start</span>
+                    </button>
+                    <button class="pomo-btn-secondary" onclick="skipPomodoro()" title="Skip">
+                        <i class="fas fa-forward-step"></i>
+                    </button>
+                </div>
+
+                <div class="pomo-settings-row">
+                    <div class="pomo-setting">
+                        <label>Focus</label>
+                        <input type="number" id="pomo-focus-min" value="25" min="5" max="90" onchange="updatePomoSettings()">
+                        <small>min</small>
+                    </div>
+                    <div class="pomo-setting">
+                        <label>Short Break</label>
+                        <input type="number" id="pomo-short-min" value="5" min="1" max="30" onchange="updatePomoSettings()">
+                        <small>min</small>
+                    </div>
+                    <div class="pomo-setting">
+                        <label>Long Break</label>
+                        <input type="number" id="pomo-long-min" value="15" min="5" max="60" onchange="updatePomoSettings()">
+                        <small>min</small>
+                    </div>
+                    <div class="pomo-setting">
+                        <label>Sessions</label>
+                        <input type="number" id="pomo-sessions-target" value="4" min="2" max="10">
+                        <small>until long</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats & Task Panel -->
+            <div class="pomodoro-right-panel">
+                <div class="card pomo-stats-card">
+                    <h3 class="card-title">Today's Focus</h3>
+                    <div class="pomo-stats-grid">
+                        <div class="pomo-stat">
+                            <span class="pomo-stat-val" id="pomo-sessions-done">0</span>
+                            <span class="pomo-stat-lbl">Sessions</span>
+                        </div>
+                        <div class="pomo-stat">
+                            <span class="pomo-stat-val" id="pomo-focus-total">0h 0m</span>
+                            <span class="pomo-stat-lbl">Focus Time</span>
+                        </div>
+                        <div class="pomo-stat">
+                            <span class="pomo-stat-val" id="pomo-tasks-done">0</span>
+                            <span class="pomo-stat-lbl">Tasks Done</span>
+                        </div>
+                    </div>
+                    <div class="pomo-session-dots" id="pomo-session-dots">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <div class="card pomo-task-card">
+                    <h3 class="card-title">Current Task</h3>
+                    <select id="pomo-task-select" class="pomo-task-select">
+                        <option value="">— Select a task to focus on —</option>
+                    </select>
+                    <div id="pomo-task-desc" class="pomo-task-desc"></div>
+                </div>
+
+                <div class="card pomo-log-card">
+                    <h3 class="card-title">Session Log</h3>
+                    <div id="pomo-log-list" class="pomo-log-list">
+                        <p class="pomo-log-empty">No sessions yet. Start your focus timer!</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: ANALYTICS
+         ════════════════════════════════════════ -->
+    <section id="page-analytics" class="page">
+
+        <div class="page-title-row">
+            <h1 class="page-title">Analytics</h1>
+            <p class="page-subtitle">Deep dive into your progress and patterns</p>
+        </div>
+
+        <div class="analytics-grid">
+
+            <div class="card analytics-card-full">
+                <div class="card-header">
+                    <h3 class="card-title">Progress by Month</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="monthlyProgressChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card analytics-card-half">
+                <div class="card-header">
+                    <h3 class="card-title">Task Category Breakdown</h3>
+                </div>
+                <div class="chart-container chart-sm">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card analytics-card-half">
+                <div class="card-header">
+                    <h3 class="card-title">Completion Rate</h3>
+                </div>
+                <div class="chart-container chart-sm">
+                    <canvas id="completionChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card analytics-card-full">
+                <div class="card-header">
+                    <h3 class="card-title">Skill Growth Over Time</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="skillGrowthChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════
+         PAGE: SETTINGS
+         ════════════════════════════════════════ -->
+    <section id="page-settings" class="page">
+
+        <div class="page-title-row">
+            <h1 class="page-title">Settings</h1>
+        </div>
+
+        <div class="settings-grid">
+
+            <!-- Profile -->
+            <div class="card settings-card">
+                <div class="settings-card-header">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Profile</h3>
+                </div>
+                <div class="form-field">
+                    <label>Name</label>
+                    <input type="text" id="set-name" placeholder="Your name">
+                </div>
+                <div class="form-field">
+                    <label>Start Date</label>
+                    <input type="date" id="set-start-date">
+                </div>
+                <div class="form-field">
+                    <label>Target Role</label>
+                    <select id="set-target-role">
+                        <option>GenAI Engineer</option>
+                        <option>ML Engineer</option>
+                        <option>NLP Engineer</option>
+                        <option>MLOps Engineer</option>
+                        <option>Data Scientist</option>
+                        <option>AI Researcher</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="saveSettings()">
+                    <i class="fas fa-floppy-disk"></i> Save Profile
+                </button>
+            </div>
+
+            <!-- Appearance -->
+            <div class="card settings-card">
+                <div class="settings-card-header">
+                    <i class="fas fa-palette"></i>
+                    <h3>Appearance</h3>
+                </div>
+                <div class="form-field toggle-field">
+                    <label>Dark Mode</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="set-dark-mode" checked onchange="toggleTheme()">
+                        <span class="ts-slider"></span>
+                    </label>
+                </div>
+                <div class="form-field">
+                    <label>Accent Color</label>
+                    <div class="color-options">
+                        <div class="color-opt active" style="background:#2563eb" onclick="setAccent('#2563eb', this)" title="Blue"></div>
+                        <div class="color-opt" style="background:#7c3aed" onclick="setAccent('#7c3aed', this)" title="Purple"></div>
+                        <div class="color-opt" style="background:#0891b2" onclick="setAccent('#0891b2', this)" title="Cyan"></div>
+                        <div class="color-opt" style="background:#059669" onclick="setAccent('#059669', this)" title="Green"></div>
+                        <div class="color-opt" style="background:#dc2626" onclick="setAccent('#dc2626', this)" title="Red"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications -->
+            <div class="card settings-card">
+                <div class="settings-card-header">
+                    <i class="fas fa-bell"></i>
+                    <h3>Preferences</h3>
+                </div>
+                <div class="form-field toggle-field">
+                    <label>Celebration Effects</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="set-confetti" checked>
+                        <span class="ts-slider"></span>
+                    </label>
+                </div>
+                <div class="form-field toggle-field">
+                    <label>Sound Effects</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="set-sounds">
+                        <span class="ts-slider"></span>
+                    </label>
+                </div>
+                <div class="form-field toggle-field">
+                    <label>Auto-open Task Groups</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="set-auto-open" checked>
+                        <span class="ts-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Data -->
+            <div class="card settings-card">
+                <div class="settings-card-header">
+                    <i class="fas fa-database"></i>
+                    <h3>Data Management</h3>
+                </div>
+                <div class="form-field">
+                    <button class="btn btn-ghost btn-sm btn-full" onclick="exportData()">
+                        <i class="fas fa-file-export"></i> Export Progress (JSON)
+                    </button>
+                </div>
+                <div class="form-field">
+                    <button class="btn btn-ghost btn-sm btn-full" onclick="document.getElementById('import-input').click()">
+                        <i class="fas fa-file-import"></i> Import Progress
+                    </button>
+                    <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)">
+                </div>
+                <div class="form-field">
+                    <button class="btn btn-ghost btn-sm btn-full" onclick="printProgress()">
+                        <i class="fas fa-print"></i> Print / Save as PDF
+                    </button>
+                </div>
+                <div class="form-field">
+                    <button class="btn btn-danger btn-sm btn-full" onclick="resetData()">
+                        <i class="fas fa-trash-alt"></i> Reset All Progress
+                    </button>
+                </div>
+                <div class="data-info">
+                    <i class="fas fa-info-circle"></i>
+                    All data stored locally in your browser. Export regularly to backup!
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- ============================================================
+     NOTIFICATION PANEL (Slide-in)
+     ============================================================ -->
+<div id="notification-overlay" class="notif-overlay hidden" onclick="closeNotifications()"></div>
+<div id="notification-panel" class="notif-panel">
+    <div class="notif-panel-header">
+        <h3>Notifications</h3>
+        <div class="notif-panel-actions">
+            <button class="btn btn-ghost btn-sm" onclick="clearNotifications()">Clear all</button>
+            <button class="notif-close-btn" onclick="closeNotifications()"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+    <div id="notif-list" class="notif-list">
+        <!-- Rendered by JS -->
+    </div>
+</div>
+
+<!-- ============================================================
+     MODAL (Universal)
+     ============================================================ -->
+<div id="modal-backdrop" class="modal-backdrop hidden" onclick="closeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3 id="modal-heading"></h3>
+            <button class="modal-close-btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="modal-content" class="modal-content">
+            <!-- Dynamic content -->
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     PROJECT DETAIL DRAWER
+     ============================================================ -->
+<div id="project-drawer-backdrop" class="drawer-backdrop hidden" onclick="closeProjectDrawer()"></div>
+<div id="project-drawer" class="project-drawer">
+    <div class="drawer-header">
+        <div id="drawer-project-num" class="drawer-project-num">01</div>
+        <h2 id="drawer-project-title">Project Title</h2>
+        <button class="drawer-close-btn" onclick="closeProjectDrawer()"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="drawer-content" class="drawer-content">
+        <!-- Rendered by JS -->
+    </div>
+</div>
+
+<!-- ============================================================
+     TOAST NOTIFICATIONS
+     ============================================================ -->
+<div id="toast-stack" class="toast-stack" aria-live="polite">
+    <!-- Toasts injected by JS -->
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
